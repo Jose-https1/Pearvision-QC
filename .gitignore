@@ -21,3 +21,7 @@ runs/
 
 PROMPT*.md
 claude_prompts/
+
+# Local auxiliary folders
+metadata/
+scripts_clase/
