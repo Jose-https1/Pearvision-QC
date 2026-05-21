@@ -1,0 +1,17 @@
+# Clases de defecto para PearVision QC — detector YOLO
+#
+# Solo se anotan defectos superficiales visibles en piel de pera.
+# good_pear NO es una clase YOLO: una pera sana es una imagen sin etiquetas.
+# pear (silueta de la fruta) NO es clase de detección de defecto.
+
+nc: 3
+
+names:
+  0: mechanical_damage   # golpes, abrasiones, magulladuras, punciones superficiales
+  1: rot                 # podredumbre, necrosis, manchas oscuras degradativas
+  2: twig_mark           # marcas lineales de ramita o daños tipo pedúnculo
+
+# Notas
+# -----
+# - Una imagen sin ninguna caja de anotación equivale a good_pear.
+# - No añadir clases nuevas sin actualizar este archivo y reentrenar.

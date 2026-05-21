@@ -1,0 +1,22 @@
+segmentation:
+  blur_kernel: 5
+  morph_kernel: 7
+  min_area_ratio: 0.05
+  max_mask_area_ratio: 0.90
+  hsv_lower: [15, 30, 30]
+  hsv_upper: [90, 255, 255]
+  shadow_saturation_min: 45
+  shadow_value_min: 40
+  method: grabcut
+  grabcut_margin_ratio: 0.08
+  grabcut_iterations: 5
+  save_debug_masks: false
+  use_shadow_detach: true
+  detach_shadow_kernel: 9
+  detach_shadow_iterations: 2
+  remove_bottom_artifacts: true
+  bottom_band_ratio: 0.18
+  min_row_width_ratio: 0.25
+  isolate_pear_body: true      # romper puentes finos con fondo/mantel
+  bridge_erode_px: 10          # radio de erosion para separar puentes estrechos
+  bridge_erode_iterations: 2   # iteraciones de erosion/redilatacion

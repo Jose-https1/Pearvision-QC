@@ -1,0 +1,25 @@
+# Dataset config para Ultralytics YOLOv8 — Custom Pear Defects
+# Detección de defectos superficiales de pera (dataset propio)
+#
+# Ruta base: un nivel arriba de configs/, es decir la raíz del proyecto.
+path: ../data/pear_defects_custom
+
+train: images/train
+val:   images/val
+
+# Clases de defecto superficial
+nc: 5
+names:
+  0: bruise     # golpes, abrasiones, magulladuras, punciones superficiales
+  1: stab       # punciones o cortes puntuales
+  2: twig       # marcas de ramita, daños lineales tipo pedúnculo
+  3: tcm        # daño por insecto / TCM (Tuta absoluta o similar)
+  4: rot        # podredumbre, necrosis, manchas oscuras degradativas
+
+# Notas de etiquetado
+# -------------------
+# - good_pear NO es clase. Imagen sin cajas = pera sana.
+# - NO etiquetar sombras, reflejos ni textura natural de la piel.
+# - Etiquetar solo defecto visible real y claramente discernible.
+# - Una misma pera puede tener múltiples cajas de clases distintas.
+# - Formato bbox YOLO: <class_id> <cx> <cy> <w> <h>  (valores 0-1, centros normalizados)

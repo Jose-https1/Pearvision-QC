@@ -1,0 +1,19 @@
+# Dataset config para Ultralytics YOLOv8 — PearVision QC
+# Ruta base relativa al archivo de config (un nivel arriba de configs/)
+path: ../data
+
+train: train/images
+val:   val/images
+test:  test/images
+
+# Clases de defecto
+nc: 3
+names:
+  0: mechanical_damage
+  1: rot
+  2: twig_mark
+
+# Notas
+# -----
+# good_pear NO es clase. Una imagen sin cajas de anotación equivale a pera sana.
+# pear (silueta) tampoco es clase de detección.

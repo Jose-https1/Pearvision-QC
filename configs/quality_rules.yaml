@@ -1,0 +1,85 @@
+# configs/quality_rules.yaml
+# Umbrales del motor de calidad rule-based v1 — PearVision QC
+# Editar sin reentrenar modelos.
+
+# Área mínima de la pera como % de la imagen total para procesar
+min_pear_area_pct: 5.0
+
+# Porcentajes de defecto → categoría comercial (v4: triple condicion defecto+podredumbre+region)
+# Manchas suaves, russeting y coloracion natural NO deben provocar rechazo automatico.
+max_extra_defect_pct: 1.0          # EXTRA: defecto total < este valor
+max_extra_rot_pct: 0.5             # EXTRA: podredumbre < este valor
+max_extra_region_pct: 1.0          # EXTRA: region mayor < este valor
+
+max_category_i_defect_pct: 3.0    # CATEGORIA I: defecto total < este valor
+max_category_i_rot_pct: 1.5       # CATEGORIA I: podredumbre < este valor
+max_category_i_region_pct: 2.0    # CATEGORIA I: region mayor < este valor
+
+max_category_ii_defect_pct: 15.0  # CATEGORIA II: defecto total < este valor
+max_category_ii_rot_pct: 5.0      # CATEGORIA II: podredumbre < este valor
+max_category_ii_region_pct: 12.0  # CATEGORIA II: region mayor < este valor
+                                   # >= alguno de estos valores → NO COMERCIAL
+
+# Umbrales de rechazo individual — evidencia fuerte en UNA sola metrica
+# Un valor alto en defecto total SIN podredumbre real puede ser coloracion natural.
+reject_defect_pct: 40.0            # defecto total >= → RECHAZA (solo si muy extenso; subido de 30 para tolerar russeting residual)
+reject_dark_rot_pct: 20.0          # podredumbre oscura >= → RECHAZA; subido de 12 para tolerar russeting denso con manchas oscuras naturales
+reject_region_pct: 25.0            # region unica >= → RECHAZA (lesion severa localizada; subido de 20 para evitar rechazo por cluster de russeting)
+
+# Umbrales de rechazo combinado — las TRES metricas deben superar umbral simultaneamente
+# Evita falsos rechazos por coloracion natural (defect alto) sin podredumbre real (rot bajo).
+combo_reject_defect_pct: 12.0      # defecto total >= (en combinacion)
+combo_reject_rot_pct: 15.0         # podredumbre >= (en combinacion); subido de 8 para evitar rechazo combo cuando rot es alta por russeting pero no llega a 15%
+combo_reject_region_pct: 7.0       # region mayor >= (en combinacion)
+
+# Filtro de ruido: regiones más pequeñas que este valor se ignoran
+# 200 px: elimina manchitas individuales de russeting/textura natural que no constituyen defecto real
+min_region_area_px: 200
+
+# --- Detección de podredumbre oscura (HSV) ---
+# Objetivo: manchas muy oscuras, marrón-negro, típicas de necrosis/podredumbre
+rot_hsv_lower: [0, 40, 0]
+rot_hsv_upper: [25, 255, 75]
+
+# --- Detección de manchas marrones / daño mecánico (HSV) ---
+# Objetivo: zonas marronáceas de tono cálido con valor medio
+# S >= 50: el russeting natural es desaturado (S 15-45); el daño real tiene mas saturacion (S 50+)
+# V >= 60: descarta superficies muy claras y apagadas tipicas de textura natural
+brown_hsv_lower: [5, 50, 60]
+brown_hsv_upper: [25, 200, 135]
+
+# Suavizado gaussiano previo al análisis de color (debe ser impar)
+analysis_blur_kernel: 5
+
+# --- Body mask v2/v3: cuerpo central de la pera ---
+# Excluye borde/contorno, rabo y base para evitar falsos positivos
+body_border_erode_px: 10        # edge_erode_px: pixeles de erosion para eliminar el borde
+body_top_exclude_ratio: 0.08    # top_exclude_ratio: fraccion superior excluida (rabo/pedunculo)
+body_bottom_exclude_ratio: 0.05 # bottom_exclude_ratio: fraccion inferior excluida (base)
+min_body_area_pct: 0.30         # fraccion minima del area de pera que debe quedar en body_mask
+                                 # si queda menos, fallback a solo erosion sin cortes
+
+# --- Shadow detection v3: deteccion de sombras por contraste local en LAB ---
+# Una zona oscura amplia y gradual = sombra (no defecto). Un punto oscuro localizado = defecto.
+shadow_illumination_blur: 101   # kernel grande para estimar iluminacion global (debe ser impar)
+shadow_local_blur: 21           # kernel pequeno para medir contraste local inmediato (impar)
+shadow_contrast_threshold: 15.0 # umbral L (escala 0-255 de LAB OpenCV) para detectar oscuridad
+shadow_min_area_ratio: 0.05     # fraccion minima del cuerpo para clasificar zona como sombra
+
+# --- Validacion de captura v9 ---
+# Si la mascara de pera parece incluir fondo, mano o mantel, el resultado es REPETIR FOTO.
+# No se clasifica comercialmente una pera con captura no valida.
+# mask_warning (area pequena) tambien invalida la captura antes de analizar calidad.
+capture_validation_enabled: true
+min_pear_visible_pct_for_quality: 12.0  # % minimo de pera sobre la imagen total
+min_body_visible_pct_for_quality: 8.0   # % minimo de cuerpo central sobre la imagen total
+max_border_touch_pct: 8.0              # % max de pixeles de borde de imagen que puede tocar la mascara
+max_mask_components: 3                  # numero maximo de componentes grandes en la mascara
+max_mask_bbox_fill_ratio: 0.82          # fill alto -> mascara demasiado rectangular -> posible fondo
+min_mask_bbox_fill_ratio: 0.30          # fill bajo -> mascara muy fragmentada o escasa
+max_mask_irregularity_ratio: 7.0        # perimetro^2/(4*pi*area); >7 -> forma muy irregular
+
+# --- Validacion de forma: relacion alto/ancho del bounding box ---
+# Para una pera tipica: bbox_h/bbox_w entre 0.35 (tumbada) y 3.2 (muy erguida)
+min_bbox_aspect_ratio: 0.35             # < este valor -> forma demasiado ancha/horizontal
+max_bbox_aspect_ratio: 3.2              # > este valor -> forma demasiado estrecha/vertical

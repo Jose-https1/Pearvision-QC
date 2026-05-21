@@ -1,0 +1,54 @@
+Listado de rutas de carpetas
+El n£mero de serie del volumen es 0000003C 88D9:A226
+C:\USERS\JOSER\DESKTOP\SISTEMAS DE PERCEPCIàN Y VISIàN ARTIFICIAL\COMPUTER VISION\DATA_EXTERNAL\PSD\DATASETS
+³   classes.txt
+³   
+ÃÄÄÄData_aug
+³       12491.jpg
+³       12492.jpg
+³       12493.jpg
+³       12494.jpg
+³       12502.jpg
+³       12503.jpg
+³       12504.jpg
+³       12505.jpg
+³       
+ÀÄÄÄDate_demo
+    ÃÄÄÄimages
+    ³   ÃÄÄÄtrain
+    ³   ³       cam0_1_3_pear_0.jpg
+    ³   ³       cam0_1_3_pear_1.jpg
+    ³   ³       cam0_1_5_pear_0.jpg
+    ³   ³       cam0_1_6_pear_0.jpg
+    ³   ³       cam0_1_6_pear_1.jpg
+    ³   ³       cam0_1_6_pear_3.jpg
+    ³   ³       cam0_1_7_pear_0.jpg
+    ³   ³       cam0_1_7_pear_2.jpg
+    ³   ³       
+    ³   ÀÄÄÄval
+    ³           cam0_1_17_pear_1.jpg
+    ³           cam0_1_17_pear_2.jpg
+    ³           cam0_1_30_pear_2.jpg
+    ³           cam0_1_32_pear_1.jpg
+    ³           cam0_1_4_pear_0.jpg
+    ³           cam0_1_4_pear_2.jpg
+    ³           
+    ÀÄÄÄlabels
+        ÃÄÄÄtrain
+        ³       cam0_1_3_pear_0.txt
+        ³       cam0_1_3_pear_1.txt
+        ³       cam0_1_5_pear_0.txt
+        ³       cam0_1_6_pear_0.txt
+        ³       cam0_1_6_pear_1.txt
+        ³       cam0_1_6_pear_3.txt
+        ³       cam0_1_7_pear_0.txt
+        ³       cam0_1_7_pear_2.txt
+        ³       
+        ÀÄÄÄval
+                cam0_1_17_pear_1.txt
+                cam0_1_17_pear_2.txt
+                cam0_1_30_pear_2.txt
+                cam0_1_32_pear_1.txt
+                cam0_1_4_pear_0.txt
+                cam0_1_4_pear_2.txt
+                

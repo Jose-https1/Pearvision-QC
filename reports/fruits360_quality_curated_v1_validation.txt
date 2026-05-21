@@ -1,0 +1,23 @@
+=== Fruits-360 Quality Curation v1 — Validation ===
+Generado: 2026-05-17 20:34
+Status: PASS
+
+Checks OK:
+  OK  Todas las 180 imágenes copiadas correctamente.
+  OK  Sin imágenes corruptas en las 4 carpetas curadas.
+  OK  Sin solapamiento entre train/val/test.
+  OK  Ninguna imagen de 'review' en el dataset de clasificación.
+  OK  Ninguna imagen excluida en el dataset de clasificación.
+  OK  Conteos cuadran: 21 imágenes en CLS = good+bad curados.
+
+=== Resumen de conteos ===
+  Total curado: 180
+  good: 5
+  bad: 16
+  review: 22
+  excluded_invalid_capture: 137
+
+  CLS train: good=3 bad=11
+  CLS val: good=1 bad=3
+  CLS test: good=1 bad=2
+=== Fin ===
